@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里对dao层接口的实现-->
+<mapper namespace="com.bookstore.dao.OrdersDao"><!--namespace  后面接的是接口路径-->
+    <select id="showOrdersById" resultType="Orders" parameterType="int"><!--id要和dao层接口里面的方法名相同 ，
+    resultType 是返回类型，parameterType是传入参数的类型-->
+        select *
+        from book_order
+        where oid=#{id}
+    </select>
+
+    <insert id="addOrder">
+        insert into book_order(oid,bid,bname,onum,consignee,address,contactWay,orderPrice,state,createTime)
+        value (#{id},#{bookId},#{bookName},#{orderNum},#{consignee},#{address},#{contactWay},#{orderPrice},0,#{createTime})
+    </insert>
+
+    <select id="getOrderCountByUserId" resultType="int" parameterType="int">
+        select COUNT(*)
+        from book_order
+        where oid = #{id};
+    </select>
+
+    <select id="getAllOrders" resultType="Orders">
+        select *
+        from book_order
+    </select>
+</mapper>
